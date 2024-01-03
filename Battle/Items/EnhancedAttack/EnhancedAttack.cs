@@ -22,18 +22,19 @@ public class EnhancedAttack : MonoBehaviour
         {
             enhancedbullet_ui = GetComponent<SkillUIProvider>().CoolTimeBulletList[2].transform.parent.gameObject;
             generalbullet_ui = GetComponent<SkillUIProvider>().CoolTimeBulletList[0].transform.parent.gameObject;
-        } catch
-        {
-            print("°­È­°ø°İ UI°¡ ÀûÀıÇÏ°Ô ¼³Á¤ÀÌ ¾ÈµÇÀÖ´Â °Å °°¾Æ¿ä.");
         }
-        
-        bulletCountTxt = enhancedbullet_ui.GetComponentInChildren<Text>();;
+        catch
+        {
+            print("ê°•í™”ê³µê²© UIê°€ ì ì ˆí•˜ê²Œ ì„¤ì •ì´ ì•ˆë¨");
+        }
+
+        bulletCountTxt = enhancedbullet_ui.GetComponentInChildren<Text>(); ;
         Battle_Shooter.OnFireExcuted += HandlerFireExecuted;
     }
 
-    private void HandlerFireExecuted(int bulletIdx)
+    private void HandlerFireExecuted(Transform other_transform, int bulletIdx)
     {
-        if(bulletIdx == 2) // 2¹øÀÌ °­È­ °ø°İÀÌ¶ó°í °¡Á¤
+        if (transform.CompareTag(other_transform.tag) && bulletIdx == 2) // 2ë²ˆì´ ê°•í™” ê³µê²©ì´ë¼ê³  ê°€ì •
         {
             CurBulletCnt--;
             UpdateBulletState();
@@ -42,23 +43,23 @@ public class EnhancedAttack : MonoBehaviour
 
     public void UpdateBulletState()
     {
-        if(enhancedbullet_ui.activeSelf == false)
+        if (enhancedbullet_ui.activeSelf == false)
         {
-            battle_Shooter.keys[0] = ""; //±âÁ¸ ÀÏ¹İ°ø°İ Å°´Â ¸ÔÅëÀ¸·Î ¸¸µé±â
-            battle_Shooter.keys[2] = "Fire1"; //Å° ¼±Á¤
+            battle_Shooter.keys[0] = ""; //ê¸°ì¡´ ì¼ë°˜ê³µê²© í‚¤ëŠ” ë¨¹í†µìœ¼ë¡œ ë§Œë“¤ê¸°
+            battle_Shooter.keys[2] = "Fire1"; //í‚¤ ì„ ì •
             generalbullet_ui.SetActive(false);
             enhancedbullet_ui.SetActive(true);
         }
 
-        if (CurBulletCnt >= 100) bulletCountTxt.text = "?"; //100¹ß ÀÌ»óÀÇ °­È­ °ø°İÀÏ½Ã ?Ç¥±â
+        if (CurBulletCnt >= 100) bulletCountTxt.text = "?"; //100ë°œ ì´ìƒì˜ ê°•í™” ê³µê²©ì¼ì‹œ ?í‘œê¸°
         else bulletCountTxt.text = CurBulletCnt.ToString();
 
         if (CurBulletCnt <= 0)
         {
             generalbullet_ui.SetActive(true);
-            enhancedbullet_ui.SetActive(false); // ¿ø·¡ ¹«±â UI·Î º¹±¸
+            enhancedbullet_ui.SetActive(false); // ì›ë˜ ë¬´ê¸° UIë¡œ ë³µêµ¬
             battle_Shooter.keys[0] = "Fire1";
-            battle_Shooter.keys[2] = ""; //¿ø·¡Å° º¹±¸
+            battle_Shooter.keys[2] = ""; //ì›ë˜í‚¤ ë³µêµ¬
             CurBulletCnt = 0;
         }
     }

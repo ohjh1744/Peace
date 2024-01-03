@@ -20,7 +20,7 @@ public class Battle_Shooter : MonoBehaviour
     [HideInInspector]
     public List<float> last_shoot_time;
     [HideInInspector]
-    public delegate void Action(int value);
+    public delegate void Action(Transform transform, int value);
     [HideInInspector]
     public static event Action OnFireExcuted; // fire함수 실행을 이벤트로 감지하게 만들어줄 필요있음 --> EnhancedAttack에서 감지할 예정
 
@@ -85,7 +85,7 @@ public class Battle_Shooter : MonoBehaviour
                 rb.velocity = dir * bullets[bulletIndex].Speed;
             }
             last_shoot_time[bulletIndex] = Time.time; //가장 최근 발사 시간 기록
-            OnFireExcuted?.Invoke(bulletIndex);
+            OnFireExcuted?.Invoke(transform, bulletIndex);
             return true;
         }
         return false; //시전 성공 유무를 반환
