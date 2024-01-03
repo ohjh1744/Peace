@@ -14,7 +14,7 @@ public class PlayerAudioControl : MonoBehaviour
     private void Awake()
     {
         shooter = GetComponent<Battle_Shooter>();
-        if(shooter != null )
+        if (shooter != null)
             Battle_Shooter.OnFireExcuted += HandlerFireExecute_Sound;
         audioSource = new List<AudioSource>();
         for (int i = 0; i < audioClips.Length; i++)
@@ -24,9 +24,12 @@ public class PlayerAudioControl : MonoBehaviour
             audioSource[i].playOnAwake = false;
         }
     }
-    public void HandlerFireExecute_Sound(int idx)
+    public void HandlerFireExecute_Sound(Transform other_transform, int idx)
     {
-        audioSource[idx].Play();
+        if (transform.CompareTag(other_transform.tag))
+        {
+            audioSource[idx].Play();
+        }
     }
 
     private void OnDestroy()
