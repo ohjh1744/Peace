@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UiControl : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class UiControl : MonoBehaviour
     public GameObject canvasObject;
     public GameObject[] Health = new GameObject[3];
     public GameObject teleport;
-    public int healthPoint;
+    public float healthPoint;
 
     public GameObject gameManager;
     bool istalking;
@@ -28,7 +29,7 @@ public class UiControl : MonoBehaviour
         teleport = GameObject.Find("Teleport");
         canvasObject = GameObject.Find("UI");
         gameManager = GameObject.Find("GameManager").gameObject;
-       
+
 
         if (canvasObject != null)
         {
@@ -87,10 +88,17 @@ public class UiControl : MonoBehaviour
     {
         //포인트 깎고 배열에 담긴 체력 오브젝트 비활성화
         //체력이 0이 되면 위치 초기화 후 포인트 다시 채움 + 활성화
-        healthPoint--;
+        healthPoint -= 0.5f;
         if (healthPoint < 3)
         {
-            Health[healthPoint].SetActive(false);
+            if (healthPoint % 1 > 0) //하트 절반이 없는 경우
+            {
+                var img = Health[(int)healthPoint].GetComponent<Image>();
+                img.type = Image.Type.Filled;
+                img.fillAmount = healthPoint % 1;
+            }
+            else
+            { Health[(int)healthPoint].SetActive(false); }
         }
         if (healthPoint == 0)
         {
@@ -124,7 +132,7 @@ public class UiControl : MonoBehaviour
             CharacterUi.SetActive(true);
             QuestSet.SetActive(true);
             SubMenu.SetActive(false);
-            if(isMap == true)
+            if (isMap == true)
             {
                 Map_button.SetActive(true);
             }
