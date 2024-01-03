@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
@@ -28,19 +29,21 @@ public class EnemyMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateUpAxis = false;
         agent.updateRotation = false;
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         agent.SetDestination(target.transform.position);
+
         direction = (target.transform.position - transform.position).normalized;
 
         currentPosition = transform.position;
         face_direction = (currentPosition - previousPosition).normalized;
-        previousPosition = currentPosition; //¹æÇâ º¤ÅÍ Á¤º¸µé °»½Å
+        previousPosition = currentPosition; //ë°©í–¥ ë²¡í„° ì •ë³´ë“¤ ê°±ì‹ 
 
-        if (isAttack) // °ø°İ Áß¿¡´Â º¸½º´Â ÀÌµ¿ ¸øÇÔ
+        if (isAttack) // ê³µê²© ì¤‘ì—ëŠ” ë³´ìŠ¤ëŠ” ì´ë™ ëª»í•¨
         {
             agent.isStopped = true;
         }
@@ -48,11 +51,11 @@ public class EnemyMovement : MonoBehaviour
         {
             agent.isStopped = false;
 
-            if(face_direction.magnitude > 0)
+            if (face_direction.magnitude > 0)
             {
                 anim.SetFloat("h", face_direction.x);
                 anim.SetFloat("v", face_direction.y);
-            } // ÃÊ±ÙÁ¢ÀÇ °æ¿ì ¿òÁ÷ÀÓÀÌ ¾ø±â¿¡ face_directionÀ» ¾²¸é ¿¡·¯
+            } // ì´ˆê·¼ì ‘ì˜ ê²½ìš° ì›€ì§ì„ì´ ì—†ê¸°ì— face_directionì„ ì“°ë©´ ì—ëŸ¬
             else
             {
                 anim.SetFloat("h", direction.x);
