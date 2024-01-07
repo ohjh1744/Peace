@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -23,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject target;
     [Header("MovementAnimation")]
     public Animator anim;
-    // Start is called before the first frame update
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -32,7 +28,7 @@ public class EnemyMovement : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         agent.SetDestination(target.transform.position);
@@ -41,9 +37,9 @@ public class EnemyMovement : MonoBehaviour
 
         currentPosition = transform.position;
         face_direction = (currentPosition - previousPosition).normalized;
-        previousPosition = currentPosition; //방향 벡터 정보들 갱신
+        previousPosition = currentPosition;
 
-        if (isAttack) // 공격 중에는 보스는 이동 못함
+        if (isAttack)
         {
             agent.isStopped = true;
         }
@@ -55,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
             {
                 anim.SetFloat("h", face_direction.x);
                 anim.SetFloat("v", face_direction.y);
-            } // 초근접의 경우 움직임이 없기에 face_direction을 쓰면 에러
+            }
             else
             {
                 anim.SetFloat("h", direction.x);
