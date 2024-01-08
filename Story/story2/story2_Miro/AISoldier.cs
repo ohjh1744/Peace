@@ -13,13 +13,15 @@ public class AISoldier : MonoBehaviour
 
     public GameObject warning;
     public GameObject n_warning;
+    Animator anim;
 
-    bool isspeedup; //ÄÚ·çÆ¾ ÇÑ¹ø¾¿ ¼øÂ÷´ë·Î ½ÇÇàÇÏµµ·Ï
+    bool isspeedup; //ì½”ë£¨í‹´ í•œë²ˆì”© ìˆœì°¨ëŒ€ë¡œ ì‹¤í–‰í•˜ë„ë¡
 
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Start()
@@ -42,8 +44,8 @@ public class AISoldier : MonoBehaviour
 
     void Direction()
     {
-        direction_H = Random.Range(0, 2);  // 0Àº ÁÂ, 1Àº ¿ì
-        direction_V = Random.Range(0, 2);  // 0Àº À§, 1Àº ¾Æ·¡
+        direction_H = Random.Range(0, 2);  // 0ì€ ì¢Œ, 1ì€ ìš°
+        direction_V = Random.Range(0, 2);  // 0ì€ ìœ„, 1ì€ ì•„ë˜
 
         Invoke("Direction", 2);
     }
@@ -72,29 +74,37 @@ public class AISoldier : MonoBehaviour
 
     }
 
-    void Move_Horizontal() //¼öÆòÀÌµ¿
+    void Move_Horizontal() //ìˆ˜í‰ì´ë™
     {
         if(direction_H == 0)
         {
+            anim.SetBool("isRight", false);
+            anim.SetBool("isLeft", true);
             dir = Vector2.left;
             rigid.velocity = dir * speed;
         }
         else
         {
+            anim.SetBool("isRight", true);
+            anim.SetBool("isLeft", false);
             dir = Vector2.right;
             rigid.velocity = dir * speed;
         }
     }
 
-    void Move_Vertical() //¼öÁ÷ÀÌµ¿
+    void Move_Vertical() //ìˆ˜ì§ì´ë™
     {
         if (direction_V == 0)
         {
+            anim.SetBool("isUp", true);
+            anim.SetBool("isDown", false);
             dir = Vector2.up;
             rigid.velocity = dir * speed;
         }
         else
         {
+            anim.SetBool("isUp", false);
+            anim.SetBool("isDown", true);
             dir = Vector2.down;
             rigid.velocity = dir * speed;
         }
@@ -107,7 +117,7 @@ public class AISoldier : MonoBehaviour
         RaycastHit2D rayHitLine = Physics2D.Raycast(rigid.position, dir, 0.5f, LayerMask.GetMask("Line"));
         RaycastHit2D rayHitPlayer = Physics2D.Raycast(rigid.position, dir, 2f , LayerMask.GetMask("Player"));
 
-        //Àå¾Ö¹°°ú º®¿¡ ºÎµúÈ÷¸é ¹æÇâÀüÈ¯
+        //ì¥ì• ë¬¼ê³¼ ë²½ì— ë¶€ë”ªíˆë©´ ë°©í–¥ì „í™˜
         if (rayHitObject.collider != null || rayHitLine.collider != null)
         {
             if(gameObject.layer == 10) //v
@@ -136,7 +146,7 @@ public class AISoldier : MonoBehaviour
             Invoke("Direction", 2);
         }
 
-        //Player¹ß°ß½Ã
+        //Playerë°œê²¬ì‹œ
         if (rayHitPlayer.collider != null)
         {
             StartCoroutine(SpeedUp());
