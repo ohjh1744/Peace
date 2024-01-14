@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class CheckEnter
 {
-    public static int EnterSecrethouse; //Æ÷Áö¼ÇÀ» À§ÇÑº¯¼ö
+    public static int EnterSecrethouse; //í¬ì§€ì…˜ì„ ìœ„í•œë³€ìˆ˜
     public static int EnterSecretbattle;
     public static int FromCitytoMiro;
     public static int FromMirotoGaia;
@@ -14,6 +14,10 @@ public static class CheckEnter
     public static int FromFiretoDesert;
     public static int FromDesrttoTop;
     public static int FromToptoKilled;
+    public static int FromDeserttoSecret;
+    public static int FromSecrettoFightNinja;
+    public static int FromDeserttoEscape;
+    public static int FromEscapetoExp;
 
 
 }
