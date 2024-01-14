@@ -26,6 +26,11 @@ public class SaveStory : MonoBehaviour
         PlayerPrefs.SetInt("FromFiretoDesert", CheckEnter.FromFiretoDesert);
         PlayerPrefs.SetInt("FromDesrttoTop", CheckEnter.FromDesrttoTop);
         PlayerPrefs.SetInt("FromToptoKilled", CheckEnter.FromToptoKilled);
+        PlayerPrefs.SetInt("FromDeserttoSecret", CheckEnter.FromDeserttoSecret);
+        PlayerPrefs.SetInt("FromSecrettoFightNinja", CheckEnter.FromSecrettoFightNinja);
+        PlayerPrefs.SetInt("FromDeserttoEscape", CheckEnter.FromDeserttoEscape);
+        PlayerPrefs.SetInt("FromEscapetoExp", CheckEnter.FromEscapetoExp);
+        
 
         PlayerPrefs.SetInt("get_badge", NpcQuest.get_badge);
         PlayerPrefs.SetInt("use_badge", NpcQuest.use_badge);
@@ -58,6 +63,11 @@ public class SaveStory : MonoBehaviour
         int FromFiretoDesert = PlayerPrefs.GetInt("FromFiretoDesert");
         int FromDesrttoTop = PlayerPrefs.GetInt("FromDesrttoTop");
         int FromToptoKilled = PlayerPrefs.GetInt("FromToptoKilled");
+        int FromDeserttoSecret = PlayerPrefs.GetInt("FromDeserttoSecret");
+        int FromSecrettoFightNinja = PlayerPrefs.GetInt("FromSecrettoFightNinja");
+        int FromDeserttoEscape = PlayerPrefs.GetInt("FromDeserttoEscape");
+        int FromEscapetoExp = PlayerPrefs.GetInt("FromEscapetoExp");
+
         int get_badge = PlayerPrefs.GetInt("get_badge");
         int use_badge = PlayerPrefs.GetInt("use_badge");
         int clear_badge_mission = PlayerPrefs.GetInt("clear_badge_mission");
@@ -83,6 +93,10 @@ public class SaveStory : MonoBehaviour
         CheckEnter.FromFiretoDesert = FromFiretoDesert;
         CheckEnter.FromDesrttoTop = FromDesrttoTop;
         CheckEnter.FromToptoKilled = FromToptoKilled;
+        CheckEnter.FromDeserttoSecret = FromDeserttoSecret;
+        CheckEnter.FromSecrettoFightNinja = FromSecrettoFightNinja;
+        CheckEnter.FromDeserttoEscape = FromDeserttoEscape;
+        CheckEnter.FromEscapetoExp = FromEscapetoExp;
 
         NpcQuest.get_badge = get_badge;
         NpcQuest.use_badge = use_badge;
